@@ -1,18 +1,20 @@
 var get = Ember.get;
+var gt = Ember.computed.gt;
+var alias = Ember.computed.alias;
 
-var RouteNodeController = Ember.ObjectController.extend({
-  needs: 'routeTree',
+export default Ember.ObjectController.extend({
+  needs: 'route-tree',
 
+  rootTree: alias('controllers.root-tree'),
   details: null,
 
   withDetails: false,
 
-  hasChildren: Ember.computed.gt('children.length', 0),
+  hasChildren: gt('children.length', 0),
 
   style: function() {
     return 'padding-left: ' + ((this.get('numParents') * 5) + 5) + 'px';
   }.property('numParents'),
-
 
   numParents: function() {
     var numParents = this.get('target.target.numParents');
@@ -23,7 +25,7 @@ var RouteNodeController = Ember.ObjectController.extend({
   }.property("target.target.numParents"),
 
   isCurrent: function() {
-    var currentRoute = this.get('controllers.routeTree.currentRoute');
+    var currentRoute = this.get('routeTree.currentRoute');
     if (!currentRoute) {
       return false;
     }
@@ -32,8 +34,5 @@ var RouteNodeController = Ember.ObjectController.extend({
     }
     var regName = this.get('value.name').replace('.', '\\.');
     return !!currentRoute.match(new RegExp('(^|\\.)' + regName + '(\\.|$)'));
-  }.property('controllers.routeTree.currentRoute', 'value.name')
-
+  }.property('routeTree.currentRoute', 'value.name')
 });
-
-export default RouteNodeController;

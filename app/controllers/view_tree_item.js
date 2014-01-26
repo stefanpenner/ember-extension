@@ -1,20 +1,20 @@
-var ViewTreeItemController = Ember.ObjectController.extend({
-  needs: ['viewTree'],
+var not = Ember.computed.not;
+var oneWay = Ember.computed.oneWay;
+var bool = Ember.computed.bool;
 
-  hasView: Ember.computed.not('model.value.isVirtual'),
-  hasElement: Ember.computed.not('model.value.isVirtual'),
+export default Ember.ObjectController.extend({
+  needs: ['view-tree'],
+
+  viewTree: oneWay('controllers.view-tree').readOnly(),
+  hasView: not('model.value.isVirtual'),
+  hasElement: not('model.value.isVirtual'),
 
   isCurrent: function() {
-    return this.get('controllers.viewTree.pinnedObjectId') === this.get('model.value.objectId');
-  }.property('controllers.viewTree.pinnedObjectId', 'model.value.objectId'),
+    return this.get('viewTree.pinnedObjectId') === this.get('model.value.objectId');
+  }.property('viewTree.pinnedObjectId', 'model.value.objectId'),
 
-  hasController: function() {
-    return !!this.get('model.value.controller');
-  }.property('model.value.controller'),
-
-  hasModel: function() {
-    return !!this.get('model.value.model');
-  }.property('model.value.model'),
+  hasController: bool('model.value.controller'),
+  hasModel: bool('model.value.model'),
 
   modelInspectable: function() {
     return this.get('hasModel') && this.get('value.model.type') === 'type-ember-object';
@@ -53,7 +53,4 @@ var ViewTreeItemController = Ember.ObjectController.extend({
       }
     }
   }
-
 });
-
-export default ViewTreeItemController;

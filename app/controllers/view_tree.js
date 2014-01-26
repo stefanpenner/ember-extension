@@ -1,4 +1,4 @@
-var ViewTreeController = Ember.ObjectController.extend({
+export default Ember.ObjectController.extend({
   pinnedObjectId: null,
   inspectingViews: false,
 
@@ -27,5 +27,3 @@ var ViewTreeController = Ember.ObjectController.extend({
     }
   }
 });
-
-export default ViewTreeController;

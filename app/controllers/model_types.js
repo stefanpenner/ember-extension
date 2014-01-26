@@ -1,5 +1,3 @@
-var ModelTypesController = Ember.ArrayController.extend({
+export default Ember.ArrayController.extend({
   collapsed: Ember.computed.bool('selected')
 });
-
-export default ModelTypesController;

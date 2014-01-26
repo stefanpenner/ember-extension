@@ -1,5 +1,3 @@
-var RouteTreeController = Ember.ObjectController.extend({
+export default Ember.ObjectController.extend({
   currentRoute: null
 });
-
-export default RouteTreeController;

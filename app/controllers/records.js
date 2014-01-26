@@ -1,19 +1,20 @@
-var RecordsController = Ember.ArrayController.extend({
+var alias = Ember.computed.alias;
+var none = Ember.computed.none;
+
+export default Ember.ArrayController.extend({
   init: function() {
     this._super();
     this.set('filters', []);
     this.set('filterValues', {});
   },
 
-  columns: Ember.computed.alias('modelType.columns'),
-
-  filters: [],
-
-  filterValue: null,
-
-  noFilterValue: Ember.computed.none('filterValue'),
+  columns: alias('modelType.columns'),
 
   search: '',
+  filters: undefined,
+  filterValue: undefined,
+
+  noFilterValue: none('filterValue'),
 
   actions: {
     setFilter: function(val) {
@@ -54,11 +55,8 @@ var RecordsController = Ember.ArrayController.extend({
       return true;
     });
   }.property('search', 'model.@each.columnValues', 'model.@each.filterValues', 'filterValue')
-
 });
 
 function escapeRegExp(str) {
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
-
-export default RecordsController;

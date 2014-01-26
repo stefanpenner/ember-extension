@@ -1,4 +1,4 @@
-var TreeNodeView = Ember.View.extend({
+export default Ember.View.extend({
   tagName: 'tr',
   classNameBindings: 'isPinned',
 
@@ -20,5 +20,3 @@ var TreeNodeView = Ember.View.extend({
     e.stopPropagation();
   }
 });
-
-export default TreeNodeView;

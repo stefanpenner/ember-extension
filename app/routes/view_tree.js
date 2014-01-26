@@ -1,4 +1,4 @@
-var ViewTreeRoute = Ember.Route.extend({
+export default Ember.Route.extend({
   setupController: function() {
     this.get('port').on('view:viewTree', this, this.setViewTree);
     this.get('port').on('view:stopInspecting', this, this.stopInspecting);
@@ -46,9 +46,7 @@ var ViewTreeRoute = Ember.Route.extend({
       this.get('port').send('view:inspectElement', { objectId: objectId });
     }
   }
-
 });
-
 
 function arrayizeTree(tree) {
   Ember.NativeArray.apply(tree.children);
@@ -56,5 +54,3 @@ function arrayizeTree(tree) {
   return tree;
 }
 
-
-export default ViewTreeRoute;
